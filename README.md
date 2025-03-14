@@ -1,1 +1,5 @@
-Website redesign for SJOG iplanit site
+# Colors:
+- Yellow: #FFCC00
+- Blue: #2872DD
+- Green: #27BE1C
+- Red: #DD284A
