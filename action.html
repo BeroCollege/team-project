@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Action Page</title>
+		<style>
+			/* Basic reset and page styling */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+				background-color: #f0f0f0; /* Light gray page background */
+				font-family: Arial, sans-serif;
+			}
+
+			/* A container that holds everything in a white "card" */
+			.action-page {
+				max-width: 1200px; /* Adjust if you want a narrower/wider page */
+				margin: 40px auto; /* Center horizontally, 40px from top */
+				background-color: #fff; /* White card background */
+				border-radius: 10px; /* Rounded corners */
+				padding: 20px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light drop shadow */
+				display: flex;
+				gap: 20px; /* Space between left & right columns */
+			}
+
+			/* Left column: user info, back button, main image, progress bar */
+			.left-column {
+				flex: 0 0 300px; /* Fixed-ish width for left column; adjust as needed */
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			/* Right column: heading, tasks, TTS button */
+			.right-column {
+				flex: 1; /* Takes remaining space */
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+				position: relative; /* So we can position the TTS button in top-right */
+			}
+
+			/* User info: image + text stacked vertically (or side by side if you prefer) */
+			.user-info {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.user-img {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				object-fit: cover;
+			}
+			.user-text {
+				display: flex;
+				flex-direction: column;
+			}
+			.user-name {
+				font-size: 18px;
+				font-weight: bold;
+				color: #000;
+			}
+			.user-subtitle {
+				font-size: 14px;
+				color: #666;
+			}
+
+			/* Back button */
+			.back-button {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				background-color: #eee;
+				border: 1px solid #ccc;
+				border-radius: 6px;
+				padding: 8px 12px;
+				cursor: pointer;
+				width: fit-content; /* Shrink to text size */
+				font-size: 16px;
+				color: #333;
+				text-decoration: none;
+			}
+			.back-button:hover {
+				background-color: #ddd;
+			}
+
+			/* Main/featured image (e.g., cooking) */
+			.featured-img {
+				width: 100%;
+				max-height: 200px;
+				object-fit: cover;
+				border-radius: 8px;
+				border: 1px solid #ccc;
+			}
+
+			/* Progress bar container */
+			.progress-section {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+			}
+			.progress-label {
+				font-size: 16px;
+				color: #333;
+			}
+			.progress-bar-outer {
+				width: 100%;
+				max-width: 250px; /* Adjust bar width as desired */
+				height: 15px;
+				background-color: #ddd;
+				border-radius: 8px;
+				overflow: hidden;
+			}
+			.progress-bar-inner {
+				height: 100%;
+				background-color: #f8b400; /* gold/yellow fill */
+				transition: width 0.3s ease;
+			}
+
+			/* Right column content */
+			.goal-heading {
+				font-size: 24px;
+				font-weight: bold;
+				color: #333;
+				margin-bottom: 10px;
+			}
+
+			/* TTS button pinned to top-right */
+			.tts-button {
+				position: absolute;
+				top: 0;
+				right: 0;
+				background-color: #eee;
+				border: 1px solid #ccc;
+				border-radius: 6px;
+				padding: 8px 16px;
+				font-size: 16px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.tts-button:hover {
+				background-color: #ddd;
+			}
+
+			/* Task list container */
+			.task-list {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+
+			/* Each task row: a gray "pill" or rectangle with a check or X icon */
+			.task-item {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				background-color: #f2f2f2;
+				padding: 10px 15px;
+				border-radius: 6px;
+				font-size: 16px;
+				color: #333;
+			}
+			.task-text {
+				flex: 1;
+			}
+			.task-icon {
+				font-size: 24px;
+				margin-left: 15px;
+			}
+			/* Example check (✓) is green, X is red */
+			.task-icon.green {
+				color: green;
+			}
+			.task-icon.red {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Main "action page" container -->
+		<div class="action-page">
+			<!-- LEFT COLUMN: user info, back button, featured image, progress bar -->
+			<div class="left-column">
+				<!-- User info block -->
+				<div class="user-info">
+					<img id="userImage" class="user-img" src="" alt="User Picture" />
+					<div class="user-text">
+						<div id="userName" class="user-name"></div>
+						<div id="userSubtitle" class="user-subtitle"></div>
+					</div>
+				</div>
+
+				<!-- Back button -->
+				<a id="backButton" class="back-button"> <span>←</span> Back </a>
+
+				<!-- Featured (cooking) image -->
+				<img id="featuredImage" class="featured-img" src="" alt="Featured" />
+
+				<!-- Progress bar -->
+				<div class="progress-section">
+					<span class="progress-label">Progress</span>
+					<div class="progress-bar-outer">
+						<div id="progressBarInner" class="progress-bar-inner"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- RIGHT COLUMN: TTS button, goal heading, tasks -->
+			<div class="right-column">
+				<!-- TTS button in top-right corner -->
+				<button id="ttsButton" class="tts-button">
+					<!-- Example speaker icon (Unicode) -->
+					<span>🔊</span> TT
+				</button>
+
+				<!-- Main goal heading -->
+				<div id="goalHeading" class="goal-heading"></div>
+
+				<!-- Task list -->
+				<div id="taskList" class="task-list"></div>
+			</div>
+		</div>
+
+		<script>
+			// Data for this "Action Page"
+			const data = {
+				userName: "Myriam",
+				userSubtitle: "Goals and Actions",
+				userImage: "https://picsum.photos/seed/user/60/60", // or local file
+				featuredImage: "https://picsum.photos/seed/cooking/400/200",
+				goalTitle: "Cooking Goal:",
+				progressPercent: 75, // e.g. 75% done
+				tasks: [
+					{ text: "Find cooking class", done: true },
+					{ text: "Cook an egg", done: true },
+					{ text: "Cook pasta", done: true },
+					{ text: "Go to cooking class 2", done: false },
+				],
+			};
+
+			function renderActionPage() {
+				// Fill user info
+				document.getElementById("userName").textContent = data.userName;
+				document.getElementById("userSubtitle").textContent = data.userSubtitle;
+				document.getElementById("userImage").src = data.userImage;
+
+				// Fill featured image
+				document.getElementById("featuredImage").src = data.featuredImage;
+
+				// Fill progress bar
+				const progressBarInner = document.getElementById("progressBarInner");
+				progressBarInner.style.width = data.progressPercent + "%";
+
+				// Fill main goal heading
+				document.getElementById("goalHeading").textContent = data.goalTitle;
+
+				// Build task list
+				const taskListEl = document.getElementById("taskList");
+				taskListEl.innerHTML = ""; // Clear existing
+				data.tasks.forEach((task) => {
+					const taskItem = document.createElement("div");
+					taskItem.className = "task-item";
+
+					const taskText = document.createElement("span");
+					taskText.className = "task-text";
+					taskText.textContent = task.text;
+
+					// Icon: green check if done, red X if not
+					const icon = document.createElement("span");
+					icon.classList.add("task-icon");
+					if (task.done) {
+						icon.classList.add("green");
+						icon.textContent = "✓"; // or "✔"
+					} else {
+						icon.classList.add("red");
+						icon.textContent = "✕"; // or "✖"
+					}
+
+					taskItem.appendChild(taskText);
+					taskItem.appendChild(icon);
+					taskListEl.appendChild(taskItem);
+				});
+
+				// Back button handler (example)
+				document.getElementById("backButton").onclick = () => {
+					alert("Go back to the previous page!");
+					// Could do: window.history.back();
+				};
+
+				// TTS button handler (example)
+				document.getElementById("ttsButton").onclick = () => {
+					alert("TTS triggered! (Implement your text-to-speech here.)");
+				};
+			}
+
+			window.onload = renderActionPage;
+		</script>
+	</body>
+</html>
