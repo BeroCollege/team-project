@@ -20,8 +20,8 @@ body {
 /* ====== Header Styles ====== */
 .header {
   display: inline-block;
-  padding: 15px 30px;
-  font-size: 42px;
+  padding: 15px 300px;
+  font-size: 60px;
   font-weight: bold;
   border-radius: 12px;
   color: white;
@@ -29,7 +29,7 @@ body {
 }
 
 /* Header Colors */
-.goals-doing .header { background-color: #FFCC00; }
+.goals-doing .header { background-color: #286E34; }
 .goals-didnt-do .header { background-color: #DD284A; }
 .goals-did .header { background-color: #27BE1C; }
 .goals-not-started .header { background-color: #2872DD; }
@@ -58,7 +58,7 @@ body {
   height: 250px;
   flex-grow: 1;
   padding: 20px;
-  font-size: 28px;
+  font-size: 50px;
   font-weight: bold;
   text-align: left;
   display: flex;
@@ -80,14 +80,14 @@ body {
 
 .goal-details::after {
   content: "➝";
-  font-size: 42px;
+  font-size: 80px;
   font-weight: bold;
   color: black;
   margin-left: 20px;
 }
 
 /* Goal Border Colors */
-.goals-doing .goal-details { border-color: #FFCC00; }
+.goals-doing .goal-details { border-color: #286E34; }
 .goals-didnt-do .goal-details { border-color: #DD284A; }
 .goals-did .goal-details { border-color: #27BE1C; }
 .goals-not-started .goal-details { border-color: #2872DD; }
@@ -96,7 +96,7 @@ body {
 .progress-container {
   width: 350px;
   height: 250px;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   border-radius: 15px;
   background: #ddd;
@@ -168,7 +168,6 @@ body {
 .btn.red { border-color: #DD284A; }
 .btn.blue { border-color: #2872DD; }
 .btn.green { border-color: #27BE1C; }
-.btn.yellow { border-color: #FFCC00; }
 
 /* Button Icons */
 .btn::before {
@@ -264,7 +263,6 @@ body {
 .goal-left .progress-container {
   width: 100%;
   max-width: 600px;
-  padding: 25px;
   margin-top: 30px;
 }
 
@@ -303,7 +301,7 @@ body {
 }
 
 .not-completed {
-  background-color: #DD284A;
+  background-color: #2872DD;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -326,6 +324,7 @@ body {
 .task-text {
   flex: 1;
   margin-right: 20px;
+  font-size: 40px;
 }
 
 /* ====== Progress Bar Styles (Details/Action Page) ====== */
@@ -354,4 +353,11 @@ body {
 .goal-details-page .progress-container p {
   font-size: 42px;
   margin-bottom: 20px;
+}
+
+.medal-image {
+  max-width: 80px;
+  height: auto;
+  margin: auto;
+  display: none;
 }

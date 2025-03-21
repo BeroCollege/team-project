@@ -118,23 +118,32 @@ function fetchGoals() {
 		goalElement.classList.add("goal");
 
 		goalElement.innerHTML = `
-          <img src="images/${goal.image}" alt="${goal.name}" class="goal-image">
-          <a href="goal-details.html?goal=${encodeURIComponent(
-						goal.name
-					)}&category=${category}" class="goal-details">
-              ${goal.name}
-          </a>
-          <div class="progress-container">
-              <p>Progress</p>
-              <div class="progress">
-                  <div class="progress-bar ${
-										savedProgress === 100 ? "green-bar" : "yellow-bar"
-									}"
-                       data-progress="${savedProgress}"
-                       style="width: ${savedProgress}%;"></div>
-              </div>
-          </div>
-      `;
+      <img src="images/${goal.image}" alt="${goal.name}" class="goal-image">
+      <a href="goal-details.html?goal=${encodeURIComponent(
+				goal.name
+			)}&category=${category}" class="goal-details">
+        ${goal.name}
+      </a>
+      <div class="progress-container">
+        <img src="images/medal.png" alt="medal" class="medal-image"/>
+        <p>Progress</p>
+        <div class="progress">
+          <div class="progress-bar ${
+						savedProgress === 100 ? "green-bar" : "yellow-bar"
+					}"
+            data-progress="${savedProgress}"
+            style="width: ${savedProgress}%;"></div>
+        </div>
+      </div>
+    `;
+
+		// Show the medal image *only* if we're on did.html
+		if (window.location.pathname.includes("did.html")) {
+			const medalImage = goalElement.querySelector(".medal-image"); // Find the medal image in the current goal element
+			if (medalImage) {
+				medalImage.style.display = "block"; // Make it visible
+			}
+		}
 
 		goalList.appendChild(goalElement);
 	});
@@ -214,9 +223,6 @@ function loadGoalDetails() {
 
 		// Add task image - using the goal image for all tasks
 		const taskImage = document.createElement("img");
-		taskImage.src = `images/${goalImageMap[goalName]}`;
-		taskImage.alt = task;
-		taskImage.classList.add("task-image");
 
 		// Add task text with checkmark/x
 		const taskText = document.createElement("span");
