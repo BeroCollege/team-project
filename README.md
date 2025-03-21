@@ -1,4 +1,5 @@
 # Colors:
+- Base Goals: #286E34
 - Yellow: #FFCC00
 - Blue: #2872DD
 - Green: #27BE1C
@@ -18,3 +19,17 @@ The database is in JavaScript as an object inside script.js.
 To add a new goal, edit the goalCategories object in fetchGoals().
 When added, the goal automatically appears on the correct main page and links to its detail page.
 The teacher's system will eventually handle adding goals dynamically.
+
+
+Goals to add for them:
+Football team
+Art class
+Reading and writing
+Swimming club
+
+
+Things to do:
+- Make goals move based on progress + a not-done action
+- Font sizes of text✅
+- Add medal on completed task✅
+- Change color of the main goals being done✅
