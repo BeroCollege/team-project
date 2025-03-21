@@ -1,4 +1,5 @@
 # Colors:
+- Base Goals: #286E34
 - Yellow: #FFCC00
 - Blue: #2872DD
 - Green: #27BE1C
