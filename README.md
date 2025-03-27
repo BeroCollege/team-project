@@ -4,24 +4,16 @@ This project displays a goals section within the iPlanit application, built with
 
 ## Getting Started
 
-### Prerequisites
+### Note:
+If you want to run the dev server to have a look you need to have Node.js installed
+and npm installed.
 
-*   Node.js (v18 or later recommended)
-*   npm or yarn
+After than you will probably have to run
+```bash
+npm install next
+```
 
-### Installation
-
-1.  Clone the repository (if you haven't already):
-    ```bash
-    git clone <your-repository-url>
-    cd <your-repository-directory>
-    ```
-2.  Install the dependencies:
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
+to be able to run the dev server.
 
 ### Running the Development Server
 
@@ -29,5 +21,13 @@ To run the project locally in development mode:
 
 ```bash
 npm run dev
-# or
-yarn dev
+```
+
+The important files to worry about relating to the page layout for goals are:
+- app/components/Goals.js
+- app/components/Goals.module.css
+- app/global.css
+- app/page.js (Shouldnt have to do anything here really)
+- app/page.module.css
+
+- public/goals-images/ contains the images for the goals
