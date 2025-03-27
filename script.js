@@ -30,14 +30,9 @@ function fetchGoals() {
 		]
 	};
 
-	// ✅ Get current category from body class
 	const bodyClassList = document.body.classList;
 	let category = Object.keys(goalCategories).find(cat => bodyClassList.contains(cat));
-
-	if (!category) {
-		console.log("No category found — defaulting to showing all goals.");
-		category = "goals-doing"; // fallback just in case
-	}
+	if (!category) category = "goals-doing";
 
 	const pagePath = window.location.pathname;
 	const goalList = document.getElementById("goal-list");
@@ -91,7 +86,6 @@ function fetchGoals() {
 	animateProgressBars();
 }
 
-
 function loadGoalDetails() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const goalName = urlParams.get("goal") || "Unknown Goal";
@@ -118,7 +112,6 @@ function loadGoalDetails() {
 	goalImage.src = `images/${goalImageMap[goalName] || "cooking.jpeg"}`;
 	goalImage.alt = goalName;
 
-	// ✅ Back button returns to the correct category page
 	const categoryPages = {
 		"goals-doing": "index.html",
 		"goals-did": "did.html",
@@ -132,12 +125,12 @@ function loadGoalDetails() {
 		"Learning Spanish": ["Download app", "Practice daily", "Have conversation"],
 		"Learning Korean": ["Learn Hangul", "Practice writing", "Watch a K-drama"],
 		"Workout 5 Days a Week": ["Create workout plan", "Workout Day 1", "Workout Day 2", "Workout Day 3", "Workout Day 4", "Workout Day 5"],
-		"Drink 2 Litres of Water Daily": ["Buy a reusable water bottle", "Track your water intake", "Finish 2L by evening"],
+		"Drink 2 Litres of Water Daily": ["Buy a water bottle", "Track intake", "Finish 2L by evening"],
 		"Read 1 Book a Month": ["Pick a book", "Read daily", "Finish book"],
 		"Finished a Book": ["Choose a book", "Read 10 pages a day", "Finish book"],
 		"Completed Marathon": ["Train for 6 months", "Run 10K", "Complete race"],
 		"Learn Guitar": ["Buy a guitar", "Learn 3 chords", "Play a song"],
-		"Take Art Classes": ["Sign up for class", "Attend first class", "Finish first project"],
+		"Take Art Classes": ["Sign up", "Attend first class", "Complete artwork"],
 		Skydiving: ["Find a location", "Book session", "Jump!"],
 		"Start a Podcast": ["Pick a topic", "Record first episode", "Launch podcast"]
 	};
@@ -145,8 +138,8 @@ function loadGoalDetails() {
 	const goalStepsContainer = document.getElementById("goal-steps");
 	goalStepsContainer.innerHTML = "";
 
-	let completedSteps = JSON.parse(localStorage.getItem(`completed-${goalName}`)) ||
-		Array(tasks[goalName]?.length || 0).fill(false);
+	let stepStatuses = JSON.parse(localStorage.getItem(`status-${goalName}`)) ||
+		Array(tasks[goalName]?.length || 0).fill(0); // 0 = not started, 1 = not completed, 2 = completed
 
 	tasks[goalName]?.forEach((task, index) => {
 		const stepElement = document.createElement("div");
@@ -162,24 +155,18 @@ function loadGoalDetails() {
 
 		const taskText = document.createElement("span");
 		taskText.classList.add("task-text");
-		taskText.innerHTML = completedSteps[index] ? `✔ ${task}` : `✖ ${task}`;
+
+		const status = stepStatuses[index];
+		updateStepVisual(stepElement, taskText, task, status);
 
 		taskContainer.appendChild(taskImage);
 		taskContainer.appendChild(taskText);
 		stepElement.appendChild(taskContainer);
 
-		if (completedSteps[index]) {
-			stepElement.classList.add("completed");
-		} else {
-			stepElement.classList.add("not-completed");
-		}
-
 		stepElement.addEventListener("click", function () {
-			completedSteps[index] = !completedSteps[index];
-			localStorage.setItem(`completed-${goalName}`, JSON.stringify(completedSteps));
-			stepElement.classList.toggle("completed");
-			stepElement.classList.toggle("not-completed");
-			taskText.innerHTML = completedSteps[index] ? `✔ ${task}` : `✖ ${task}`;
+			stepStatuses[index] = (stepStatuses[index] + 1) % 3;
+			localStorage.setItem(`status-${goalName}`, JSON.stringify(stepStatuses));
+			updateStepVisual(stepElement, taskText, task, stepStatuses[index]);
 			updateProgressBar(goalName);
 		});
 
@@ -189,28 +176,49 @@ function loadGoalDetails() {
 	updateProgressBar(goalName);
 }
 
+function updateStepVisual(stepElement, taskText, task, status) {
+	stepElement.classList.remove("not-completed", "completed", "not-started");
+
+	if (status === 0) {
+		taskText.innerHTML = `🔵 ${task}`;
+		stepElement.classList.add("not-started");
+		stepElement.style.backgroundColor = "#2872DD";
+		stepElement.style.color = "white";
+	} else if (status === 1) {
+		taskText.innerHTML = `❌ ${task}`;
+		stepElement.classList.add("not-completed");
+		stepElement.style.backgroundColor = "#DD284A";
+		stepElement.style.color = "white";
+	} else {
+		taskText.innerHTML = `✔ ${task}`;
+		stepElement.classList.add("completed");
+		stepElement.style.backgroundColor = "#27BE1C";
+		stepElement.style.color = "white";
+	}
+}
 
 function updateProgressBar(goalName) {
 	const tasks = {
 		Cooking: ["Find cooking class", "Cook an egg", "Cook pasta", "Go to cooking class 2"],
 		"Learning Spanish": ["Download app", "Practice daily", "Have conversation"],
 		"Learning Korean": ["Learn Hangul", "Practice writing", "Watch a K-drama"],
-		"Workout 5 Days a Week": ["Make a schedule", "Do 5 workouts", "Rest day"],
-		"Drink 2 Litres of Water Daily": ["Buy a water bottle", "Track water", "Reach daily goal"],
+		"Workout 5 Days a Week": ["Create workout plan", "Workout Day 1", "Workout Day 2", "Workout Day 3", "Workout Day 4", "Workout Day 5"],
+		"Drink 2 Litres of Water Daily": ["Buy a water bottle", "Track intake", "Finish 2L by evening"],
 		"Read 1 Book a Month": ["Pick a book", "Read daily", "Finish book"],
 		"Finished a Book": ["Choose a book", "Read 10 pages a day", "Finish book"],
 		"Completed Marathon": ["Train for 6 months", "Run 10K", "Complete race"],
 		"Learn Guitar": ["Buy a guitar", "Learn 3 chords", "Play a song"],
 		"Take Art Classes": ["Sign up", "Attend first class", "Complete artwork"],
 		Skydiving: ["Find a location", "Book session", "Jump!"],
-		"Start a Podcast": ["Pick a topic", "Record first episode", "Launch podcast"],
+		"Start a Podcast": ["Pick a topic", "Record first episode", "Launch podcast"]
 	};
 
-	const completedSteps = JSON.parse(localStorage.getItem(`completed-${goalName}`)) || [];
+	const stepStatuses = JSON.parse(localStorage.getItem(`status-${goalName}`)) || [];
 	const totalSteps = tasks[goalName]?.length || 0;
+	const completedSteps = stepStatuses.filter(s => s === 2).length;
 
 	const progressPercent = totalSteps > 0
-		? Math.round((completedSteps.filter(Boolean).length / totalSteps) * 100)
+		? Math.round((completedSteps / totalSteps) * 100)
 		: 0;
 
 	localStorage.setItem(`progress-${goalName}`, progressPercent);

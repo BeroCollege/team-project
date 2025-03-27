@@ -362,3 +362,12 @@ body {
   margin: auto;
   display: none;
 }
+
+.header {
+  text-decoration: none;
+}
+
+.header:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
