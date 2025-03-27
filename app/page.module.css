@@ -1,0 +1,27 @@
+/* app/page.module.css */
+
+/* --- Grid Layout for Desktop --- */
+@media only screen and (min-width: 60rem) {
+  .mainContent {
+    grid-column: 2; /* Second column */
+    grid-row: 2; /* Second row (main content area) */
+    align-self: stretch; /* Stretch to fill grid row height */
+    display: flex; /* Use flex for internal layout (Goals component) */
+    min-height: 0; /* Help flex sizing within grid */
+    /* Remove padding-bottom, no longer needed */
+    /* padding-bottom: 100px; */
+    box-sizing: border-box;
+  }
+}
+/* --- End Grid Layout --- */
+
+/* Styles for smaller screens (if needed) */
+@media (max-width: 59.9rem) {
+  .mainContent {
+    width: 100%;
+    margin-top: 1rem;
+    /* Remove padding-bottom here too */
+    /* padding-bottom: 100px; */
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,231 @@
+/* app/components/Goals.module.css */
+
+.goalsContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: #286e34;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.goalsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.goalItem {
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  width: 100%;
+}
+
+.goalImageWrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  aspect-ratio: 4 / 3;
+}
+
+.goalImage {
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.goalDetails {
+  flex-grow: 1;
+  background-color: white;
+  border: 4px solid #286e34;
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.goalTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.goalArrow {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #286e34;
+  margin-left: 1rem;
+}
+
+.progressBox {
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem 0.5rem;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.progressText {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+.progressBar {
+  background-color: white;
+  height: 15px;
+  width: 95%;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressBarInner {
+  height: 100%;
+  width: 0%;
+  background-color: transparent;
+  border-radius: 8px;
+  transition: width 0.3s ease-in-out;
+}
+
+.progressBarActive {
+  background-color: #ffcc00; /* Yellow */
+}
+
+.progressBarComplete {
+  background-color: #27be1c; /* Specific Green */
+}
+
+/* --- Legend Adjustments --- */
+.legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem 0 0.5rem;
+  margin-top: auto;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.legendItem {
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 3px solid; /* Keep border */
+  background-color: white; /* Set background to white */
+  flex-grow: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* New rule for emoji sizing */
+.legendEmoji {
+  font-size: 1.5em; /* Increase emoji size relative to text (adjust as needed) */
+  line-height: 1; /* Prevent extra line height */
+  display: inline-block; /* Ensure proper alignment */
+}
+
+/* Updated Legend Colors - Only border and text color */
+.legendItemRed {
+  /* background-color: #fde9ed; Removed */
+  color: #dd284a;
+  border-color: #dd284a;
+}
+
+.legendItemBlue {
+  /* background-color: #eaf0fb; Removed */
+  color: #2872dd;
+  border-color: #2872dd;
+}
+
+.legendItemGreen {
+  /* background-color: #e9f8e8; Removed */
+  color: #27be1c;
+  border-color: #27be1c;
+}
+/* --- End Legend Adjustments --- */
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+  .goalItem {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .goalImageWrapper {
+    width: 100%;
+    height: auto;
+  }
+
+  .progressBox {
+    width: 100%;
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .legend {
+    padding: 0.8rem 1rem;
+    gap: 0.8rem;
+    justify-content: space-around;
+  }
+
+  .legendItem {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    width: auto;
+    justify-content: center;
+  }
+
+  .legendEmoji {
+    font-size: 1.3em; /* Slightly smaller emoji on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .legend {
+    justify-content: center;
+  }
+  .legendItem {
+    width: 80%;
+    margin-bottom: 0.5rem;
+  }
+}
