@@ -7,22 +7,24 @@
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body class="goal-details-page">
-		<!-- Move back button outside the goal-container -->
+		<!-- Back button -->
 		<a href="#" id="back-button" class="back-btn">← Back</a>
 
 		<div class="goal-container">
-			<!-- Left Section: Image & Progress -->
+			<!-- Left Side: Image + Progress -->
 			<div class="goal-left">
 				<img id="goal-image" src="" alt="Goal Image" class="goal-image" />
+				
+				<!-- ✅ Always-visible progress bar -->
 				<div class="progress-container">
 					<p>Progress</p>
 					<div class="progress">
-						<div id="progress-bar" class="progress-bar yellow-bar"></div>
+						<div id="progress-bar" class="progress-bar yellow-bar" style="width: 0%;"></div>
 					</div>
 				</div>
 			</div>
 
-			<!-- Right Section: Title & Steps -->
+			<!-- Right Side: Title + Steps -->
 			<div class="goal-right">
 				<h1 id="goal-title">Loading...</h1>
 				<div id="goal-steps" class="goal-steps"></div>
