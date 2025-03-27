@@ -98,16 +98,28 @@ function fetchGoals() {
 		],
 	};
 
+	// Determine the current category based on the body class
 	let category = Object.keys(goalCategories).find((cat) =>
 		document.body.classList.contains(cat)
 	);
-	if (!category) return;
+
+	console.log("Detected category:", category); // Check the category
+
+	if (!category) {
+		console.log("No category found on this page.");
+		return;
+	}
 
 	const goals = goalCategories[category];
-	const goalList = document.getElementById("goal-list");
-	if (!goalList) return;
+	console.log("Goals in this category:", goals); // Check goals array
 
-	goalList.innerHTML = "";
+	const goalList = document.getElementById("goal-list");
+	if (!goalList) {
+		console.error("goal-list element not found in the DOM!");
+		return;
+	}
+
+	goalList.innerHTML = ""; // Clear existing content
 
 	goals.forEach((goal) => {
 		let savedProgress =
