@@ -1,0 +1,434 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  --blue-messages: #007AFF;
+  --orange-media: #E97E25;
+  --yellow-calendar: #FFCC00;
+  --pink-plan: #DD284A;
+  --green-actions: #286E34;
+  --purple-notes: #7D56D6;
+
+  --primary-blue: #483DFC;
+  --primary-red: #F51A1A;
+  --grey-outline: #bcbcbc;
+  --grey-background: #8D8D8D;
+
+  /* --side-spacing: 5vw; */
+  --container-width: 90vw;
+  --border-radius: 10px;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-size: 16px; /* Base font size */
+  height: 100%; /* Ensure html takes full height */
+  min-height: 100dvh; /* Use dynamic viewport height */
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex; /* Use flexbox for body */
+  flex-direction: column; /* Stack children vertically */
+  min-height: 100dvh; /* Ensure body fills viewport */
+}
+
+/* Make the main wrapper in page.js grow */
+/* If your main div in page.js has an ID or class, target that.
+   Otherwise, target the direct child div of body if appropriate.
+   Let's assume the top-level div in page.js needs to grow. */
+body > div:first-child {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.top-bar {
+  background-color: var(--primary-blue);
+  /* padding: 1.5rem calc(1rem + var(--side-spacing)); */
+  padding: 1.5rem calc(5rem + ((100vw - var(--container-width)) / 2));
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 900;
+  /* letter-spacing: 0.1rem; */
+}
+
+.top-bar > div {
+  letter-spacing: 0.1rem;
+}
+
+.top-bar .logout {
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: underline;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem
+}
+
+.container {
+  width: var(--container-width);
+  /* Keep margin for top/bottom spacing outside grid */
+  margin: 6rem auto 1rem;
+  /* Remove flex-grow here, let grid handle height */
+  /* flex-grow: 1; */
+  /* Default display (block or flex column for mobile) */
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-area {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.profile-circle {
+  position: relative;
+}
+
+.profile-circle > img {
+  width: 6rem;
+  height: 6rem;
+
+  border-radius: 50%;
+  border: 3px solid var(--grey-outline);
+}
+
+.profile-circle .icon {
+  padding: 0.1rem;
+  width: 2rem;
+  height: 2rem;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  background-color: var(--grey-background);
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.profile-area .icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-area-name {
+  flex-grow: 2;
+  align-self: center;
+
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+
+.profile-area-btns {
+  padding: 0.3rem;
+
+  display: flex;
+
+  border: 2px solid var(--grey-outline);
+  border-radius: var(--border-radius);
+}
+
+.profile-area-btns button {
+  margin-inline: 0.2rem;
+
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.profile-area-btns .smaller img {
+  /* width: 1.2rem; */
+  /* height: 1.2rem; */
+}
+
+.navbar {
+  margin: 2rem 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.navbar.single-col {
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.navbar.last3 {
+  display: none;
+}
+
+.nav-btn {
+  padding: 0.7rem 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  /* background-color: var(--green-actions); */
+  border-radius: var(--border-radius);
+
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.nav-btn img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.dashboard-widget {
+  margin-bottom: 1rem;
+
+  border: 3px solid var(--grey-outline);
+  border-radius: var(--border-radius);
+
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  overflow: hidden;
+}
+
+.dashboard-widget > * {
+  padding: 1rem;
+}
+
+.dashboard-widget .header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  color: white;
+  font-weight: 700;
+
+  background-color: var(--blue-messages);
+}
+
+.dashboard-widget .header > img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.dashboard-widget .widget-small {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.dashboard-widget .widget-body {
+  margin: 0.5rem 0;
+}
+
+.dashboard-widget .widget-notes {
+  margin: 1rem 0;
+}
+
+.dashboard-widget .widget-image {
+  max-width: 100%;
+  padding: 1rem 0.5rem;
+}
+
+.dashboard-widget .widget-image > img {
+  width: 100%;
+  height: 100%;
+
+  border-radius: var(--border-radius);
+}
+
+
+.dialog-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog-box {
+  padding: 2rem;
+  position: relative;
+  z-index: 2000;
+
+  background: white;
+  font-weight: 700;
+
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+}
+
+.dialog-box .close-icon {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+
+  background: none;
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+.dialog-box .title {
+  margin-right: 3rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 1.5rem;
+}
+
+.dialog-box .logout-icon > img {
+  filter: invert(1);
+}
+
+.dialog-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.dialog-buttons button {
+  padding: 1rem 1.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: none;
+  outline: none;
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
+
+  cursor: pointer;
+}
+
+.dialog-buttons .yes {
+  background-color: #2BD637;
+}
+
+.dialog-buttons .no {
+  background-color: #E44242;
+}
+
+
+@media only screen and (min-width: 60rem) {
+  :root {
+    /* --side-spacing: min(20vw, 2rem); */
+    --container-width: min(90vw, 100rem);
+  }
+
+  .container {
+    display: grid; /* Use grid for desktop */
+    grid-template-columns: 1fr 4fr; /* Profile/Nav | Main Content */
+    /* Rows: Top Nav Area | Main Area (expands) */
+    grid-template-rows: auto 1fr;
+    gap: 0rem 3rem; /* Only column gap */
+    flex-grow: 1; /* Allow grid container to fill vertical space */
+    min-height: 0; /* Help grid sizing within flex parent (body) */
+    /* Reset margin-bottom for grid */
+    margin-bottom: 0;
+    padding-bottom: 1rem; /* Add padding at bottom of grid container */
+  }
+
+  /* .top-strip {
+    display: flex;
+    grid-column: span 2;
+
+  } */
+
+  .navbar {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .container > .navbar {
+    /* width: 100%; */
+    /* margin-left: 6rem; */
+
+  }
+
+  .navbar.first3 {
+    grid-column: 2; /* Top right */
+    grid-row: 1;
+    /* Keep grid-template-columns: 1fr 1fr 1fr; */
+  }
+
+  .navbar.last3 {
+    grid-column: 1; /* Left column */
+    grid-row: 2; /* Below profile */
+    align-self: start; /* Align to top of its grid area */
+    /* Keep display: flex; flex-direction: column; gap: 3rem; */
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 2rem; /* Add space below profile */
+  }
+
+  /* Hide buttons correctly */
+  .navbar.first3 > :nth-last-child(-n + 3) {
+    display: none;
+  }
+  /* Ensure last 3 are shown (overrides display: none from .navbar rule) */
+  .navbar.last3 .nav-btn {
+    display: flex !important;
+  }
+
+  .profile-area {
+    /* Profile stays top-left */
+    grid-column: 1;
+    grid-row: 1; /* Start in row 1 */
+    /* Remove row span, let it take natural height */
+    /* grid-row: span 2; */
+    /* Align items center vertically if needed */
+    align-self: start;
+    /* Keep flex-direction column */
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-circle {
+    margin-inline: auto;
+  }
+}
