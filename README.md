@@ -36,11 +36,11 @@ Things to do:
 
 
 Week 9 Notes:
-- Back button is hard to find
+- Back button is hard to find ✅
 
-- Make the actions page an actual page and not a modal
+- Make the actions page an actual page and not a modal✅
 
-- Medal image on completed goals
+- Medal image on completed goals✅
 
 
 Likes:
@@ -57,3 +57,6 @@ Dean is talking about why goals are important too
 Johnathon is talking about actions
 
 Then we will be talking about how we made it into code and developed it and also talk through our app and provide demonstration
+
+TO-DO:
+- Move goals to copleted as soon as they are completed instead of keeping them in the goals im doing page.
