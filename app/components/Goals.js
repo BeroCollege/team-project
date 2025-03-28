@@ -13,7 +13,6 @@ const Goals = ({ onGoalSelect }) => {
 	const [category, setCategory] = useState("all");
 	const [filteredGoals, setFilteredGoals] = useState([]);
 
-	// ... (colorClass, borderClass, useEffects, handlers remain the same) ...
 	const colorClass = {
 		all: styles.headerGreen,
 		"didnt-do": styles.headerRed,
@@ -29,6 +28,7 @@ const Goals = ({ onGoalSelect }) => {
 	};
 
 	useEffect(() => {
+		// Default to 'all' if no category param exists
 		const param = searchParams.get("category") || "all";
 		setCategory(param);
 	}, [searchParams]);
@@ -38,31 +38,52 @@ const Goals = ({ onGoalSelect }) => {
 			const updated = allGoals.filter((goal) => {
 				const progress =
 					parseInt(localStorage.getItem(`progress-${goal.progressKey}`)) || 0;
+
 				if (category === "did") return progress === 100;
 				if (category === "not-started") return progress === 0;
 				if (category === "didnt-do")
+					// Adjust this condition based on how 'didnt-do' is determined
 					return ["Skydiving", "Start a Podcast"].includes(goal.title);
-				return true;
+
+				// Default ('all') category filter: show non-completed goals
+				return progress < 100;
 			});
 			setFilteredGoals(updated);
 		}
 	}, [category]);
 
+	// Keep this handler for the remaining legend buttons
 	const handleNavigateCategory = (cat) => {
 		setCategory(cat);
 		router.push(`/?category=${cat}`, { scroll: false });
 	};
 
+	// Keep this handler for selecting a goal
 	const handleGoalClick = (goalKey) => {
 		onGoalSelect(goalKey);
 	};
 
 	return (
 		<div className={styles.goalsContainer}>
-			<div className={`${styles.header} ${colorClass[category]}`}>
-				<h1>Goals</h1>
+			{/* Header */}
+			<div
+				className={`${styles.header} ${
+					colorClass[category] || styles.headerGreen
+				}`}
+			>
+				<h1>
+					{category === "did"
+						? "Goals I Did"
+						: category === "not-started"
+						? "Goals Not Started"
+						: category === "didnt-do"
+						? "Goals I Didn't Do"
+						: "Goals I'm Doing"}{" "}
+					{/* Default title */}
+				</h1>
 			</div>
 
+			{/* Goals List */}
 			<div className={styles.goalsList}>
 				{filteredGoals.map((goal) => {
 					let progress = 0;
@@ -75,9 +96,7 @@ const Goals = ({ onGoalSelect }) => {
 
 					return (
 						<div key={goal.id} className={styles.goalItem}>
-							{/* Goal Image Wrapper - MEDAL REMOVED FROM HERE */}
 							<div className={styles.goalImageWrapper}>
-								{/* {progress === 100 && ( ... medal was here ... )} */}
 								<Image
 									src={goal.image}
 									alt={goal.title}
@@ -85,8 +104,6 @@ const Goals = ({ onGoalSelect }) => {
 									className={styles.goalImage}
 								/>
 							</div>
-
-							{/* Goal Details Button */}
 							<button
 								onClick={() => handleGoalClick(goal.progressKey)}
 								className={`${styles.goalDetails} ${currentBorderClass}`}
@@ -94,17 +111,13 @@ const Goals = ({ onGoalSelect }) => {
 								<span className={styles.goalTitle}>{goal.title}</span>
 								<span className={styles.goalArrow}>➝</span>
 							</button>
-
-							{/* Progress Box - MEDAL MOVED HERE */}
 							<div className={styles.progressBox}>
-								{/* Conditionally render medal *inside* progressBox */}
-								{progress === 100 && (
+								{progress === 100 && category !== "did" && (
 									<Image
 										src="/goals-images/medal.png"
 										alt="Medal"
-										width={40} // Adjust size if needed
-										height={40} // Adjust size if needed
-										// Apply new style for positioning within progress box
+										width={40}
+										height={40}
 										className={styles.progressMedal}
 									/>
 								)}
@@ -125,17 +138,29 @@ const Goals = ({ onGoalSelect }) => {
 						</div>
 					);
 				})}
+				{filteredGoals.length === 0 && (
+					<p
+						style={{
+							textAlign: "center",
+							marginTop: "2rem",
+							fontSize: "1.2rem",
+							color: "#666",
+						}}
+					>
+						No goals match the current filter.
+					</p>
+				)}
 			</div>
 
-			{/* Legend */}
+			{/* Legend - REMOVE the "Goals I'm Doing" button */}
 			<div className={styles.legend}>
-				{/* ... legend buttons ... */}
 				<button
 					onClick={() => handleNavigateCategory("didnt-do")}
 					className={`${styles.legendItem} ${styles.legendItemRed}`}
 				>
 					<span className={styles.legendEmoji}>✖</span> Goals I Didn't Do
 				</button>
+				{/* The "Goals I'm Doing" button was here - now removed */}
 				<button
 					onClick={() => handleNavigateCategory("not-started")}
 					className={`${styles.legendItem} ${styles.legendItemBlue}`}

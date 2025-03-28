@@ -194,13 +194,21 @@ button {
 }
 
 .nav-btn {
-  padding: 0.7rem 1rem;
+  /* Option 1: Keep increased padding */
+  padding: 1rem 1rem;
+
+  /* Option 2: Revert padding if preferred */
+  /* padding: 0.7rem 1rem; */
+
+  /* --- ADD min-height --- */
+  min-height: 65px; /* Adjust this value as needed */
+  /* Ensure box-sizing is correct (should be inherited from * rule) */
+  box-sizing: border-box;
 
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically center content within the button */
   gap: 0.5rem;
 
-  /* background-color: var(--green-actions); */
   border-radius: var(--border-radius);
 
   color: white;
@@ -398,12 +406,11 @@ button {
   .navbar.last3 {
     grid-column: 1; /* Left column */
     grid-row: 2; /* Below profile */
-    align-self: start; /* Align to top of its grid area */
-    /* Keep display: flex; flex-direction: column; gap: 3rem; */
+    align-self: start; /* Align container to top */
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    margin-top: 2rem; /* Add space below profile */
+    gap: 3rem; /* Controls spacing between left buttons */
+    margin-top: 2rem;
   }
 
   /* Hide buttons correctly */
@@ -412,8 +419,9 @@ button {
   }
   /* Ensure last 3 are shown (overrides display: none from .navbar rule) */
   .navbar.last3 .nav-btn {
-    display: flex !important;
-  }
+    /* display: flex !important; */ /* Already handled */
+    /* width: 100%; */ /* Optional: Make buttons fill width of left column */
+ }
 
   .profile-area {
     /* Profile stays top-left */
