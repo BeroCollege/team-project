@@ -91,10 +91,11 @@
   width: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Keep content vertically centered */
+  align-items: center; /* Keep content horizontally centered */
   text-align: center;
   box-sizing: border-box;
+  position: relative; /* Needed for potential absolute positioning of children if required, good practice */
 }
 
 .progressText {
@@ -102,6 +103,8 @@
   font-weight: bold;
   color: #555;
   margin-bottom: 0.8rem;
+  /* Adjust margin-top if medal pushes it down too much */
+  margin-top: 0.2rem; /* Add a little space below medal */
 }
 
 .progressBar {
@@ -200,7 +203,7 @@
     background-color: #f0f0f0;
     aspect-ratio: 4 / 3;
   }
-  
+
 
   .progressBox {
     width: 100%;
@@ -290,11 +293,11 @@
   pointer-events: auto; /* Enable button clicks */
 }
 
-.medalIcon {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
+.progressMedal {
+  width: 40px; /* Control size */
+  height: 40px; /* Control size */
+  /* Position it slightly overlapping the top */
+  margin-top: -25px; /* Pulls the medal upwards */
+  margin-bottom: 5px; /* Space between medal and "Progress" text */
+  z-index: 5; /* Ensure it's above the progress box background */
 }
-
