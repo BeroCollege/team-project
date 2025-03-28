@@ -29,7 +29,31 @@ Swimming club
 
 
 Things to do:
-- Make goals move based on progress + a not-done action
+- Make goals move based on progress + a not-done action ✅
 - Font sizes of text✅
 - Add medal on completed task✅
 - Change color of the main goals being done✅
+
+
+Week 9 Notes:
+- Back button is hard to find
+
+- Make the actions page an actual page and not a modal
+
+- Medal image on completed goals
+
+
+Likes:
+Writing is better
+Colors are better
+
+
+
+Co-desingers doing their part first:
+-Presenting their UIzard part
+Amy is doing intro
+Karl is talking about why goals are important
+Dean is talking about why goals are important too
+Johnathon is talking about actions
+
+Then we will be talking about how we made it into code and developed it and also talk through our app and provide demonstration
