@@ -71,16 +71,18 @@
 }
 
 .goalTitle {
-  font-size: 1.5rem;
+  /* --- Increased font size --- */
+  font-size: 1.8rem; /* Was 1.5rem */
   font-weight: bold;
-  color: #333;
+  color: #222;
 }
 
 .goalArrow {
-  font-size: 2rem;
+  /* --- Increased font size significantly --- */
+  font-size: 3.5rem; /* Was 2rem */
   font-weight: bold;
-  color: #286e34;
   margin-left: 1rem;
+  transition: color 0.3s ease;
 }
 
 .progressBox {
@@ -91,25 +93,26 @@
   width: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Keep content vertically centered */
-  align-items: center; /* Keep content horizontally centered */
+  justify-content: center;
+  align-items: center;
   text-align: center;
   box-sizing: border-box;
-  position: relative; /* Needed for potential absolute positioning of children if required, good practice */
+  position: relative;
 }
 
 .progressText {
-  font-size: 1.1rem;
+  /* --- Increased font size --- */
+  font-size: 1.3rem; /* Was 1.1rem */
   font-weight: bold;
-  color: #555;
+  color: #222;
   margin-bottom: 0.8rem;
-  /* Adjust margin-top if medal pushes it down too much */
-  margin-top: 0.2rem; /* Add a little space below medal */
+  margin-top: 0.2rem;
 }
 
 .progressBar {
   background-color: white;
-  height: 15px;
+  /* --- Increased height --- */
+  height: 20px; /* Was 15px */
   width: 95%;
   border-radius: 8px;
   overflow: hidden;
@@ -117,7 +120,7 @@
 }
 
 .progressBarInner {
-  height: 100%;
+  height: 100%; /* Stays 100% to fill parent */
   width: 0%;
   background-color: transparent;
   border-radius: 8px;
@@ -153,39 +156,33 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  border: 3px solid; /* Keep border */
-  background-color: white; /* Set background to white */
+  border: 3px solid;
+  background-color: white;
   flex-grow: 0;
   flex-shrink: 0;
   cursor: pointer;
 }
 
-/* New rule for emoji sizing */
 .legendEmoji {
-  font-size: 1.5em; /* Increase emoji size relative to text (adjust as needed) */
-  line-height: 1; /* Prevent extra line height */
-  display: inline-block; /* Ensure proper alignment */
+  font-size: 1.5em;
+  line-height: 1;
+  display: inline-block;
 }
 
-/* Updated Legend Colors - Only border and text color */
 .legendItemRed {
-  /* background-color: #fde9ed; Removed */
   color: #dd284a;
   border-color: #dd284a;
 }
 
 .legendItemBlue {
-  /* background-color: #eaf0fb; Removed */
   color: #2872dd;
   border-color: #2872dd;
 }
 
 .legendItemGreen {
-  /* background-color: #e9f8e8; Removed */
   color: #27be1c;
   border-color: #27be1c;
 }
-/* --- End Legend Adjustments --- */
 
 /* --- Media Queries --- */
 @media (max-width: 768px) {
@@ -225,7 +222,7 @@
   }
 
   .legendEmoji {
-    font-size: 1.3em; /* Slightly smaller emoji on mobile */
+    font-size: 1.3em;
   }
 }
 
@@ -240,39 +237,18 @@
 }
 
 /* ====== Header Color Variants ====== */
-.headerGreen {
-  background-color: #286e34; /* Dark green (default all) */
-}
-
-.headerRed {
-  background-color: #dd284a; /* Red - Didn't Do */
-}
-
-.headerBlue {
-  background-color: #2872dd; /* Blue - Not Started */
-}
-
-.headerDoneGreen {
-  background-color: #27be1c; /* Light green - Did */
-}
+.headerGreen { background-color: #286e34; }
+.headerRed { background-color: #dd284a; }
+.headerBlue { background-color: #2872dd; }
+.headerDoneGreen { background-color: #27be1c; }
 
 /* ====== Border Color Variants for Goal Name Box ====== */
-.goalRedBorder {
-  border-color: #dd284a; /* Red - Didn't Do */
-}
+.goalRedBorder { border-color: #dd284a; }
+.goalBlueBorder { border-color: #2872dd; }
+.goalDoneGreenBorder { border-color: #27be1c; }
+.goalDarkGreenBorder { border-color: #286e34; }
 
-.goalBlueBorder {
-  border-color: #2872dd; /* Blue - Not Started */
-}
-
-.goalDoneGreenBorder {
-  border-color: #27be1c; /* Green - Did */
-}
-
-.goalDarkGreenBorder {
-  border-color: #286e34; /* Default - All */
-}
-
+/* --- Legend Fixed Positioning --- */
 .legend {
   position: fixed;
   bottom: 20px;
@@ -283,40 +259,40 @@
   gap: 1.5rem;
   padding: 0;
   margin: 0;
-  background: transparent; /* ✅ remove white bar */
-  box-shadow: none;         /* ✅ remove shadow */
+  background: transparent;
+  box-shadow: none;
   z-index: 1000;
-  pointer-events: none; /* Allow only buttons to be clickable */
+  pointer-events: none;
 }
 
 .legendItem {
-  pointer-events: auto; /* Enable button clicks */
+  pointer-events: auto;
 }
 
+/* --- Medal Positioning --- */
 .progressMedal {
-  width: 40px; /* Control size */
-  height: 40px; /* Control size */
-  /* Position it slightly overlapping the top */
-  margin-top: -25px; /* Pulls the medal upwards */
-  margin-bottom: 5px; /* Space between medal and "Progress" text */
-  z-index: 5; /* Ensure it's above the progress box background */
+  width: 40px;
+  height: 40px;
+  margin-top: -25px;
+  margin-bottom: 5px;
+  z-index: 5;
 }
 
-/* --- Style for the Back Button in Details View --- */
+/* --- Back Button Style --- */
 .backButton {
-  background: #ddd;      /* Background color */
-  color: #333;          /* Text color */
-  border: none;          /* Remove default border */
-  border-radius: 10px;   /* Rounded corners */
-  padding: 0.8rem 1.8rem;/* Vertical and horizontal padding */
-  font-size: 1.1rem;     /* Font size */
-  font-weight: bold;     /* Bold text */
-  cursor: pointer;       /* Pointer cursor on hover */
-  margin-bottom: 1.5rem; /* Space below the button */
-  align-self: flex-start;/* Prevent stretching to full width in flex container */
-  transition: background-color 0.2s ease; /* Smooth hover effect */
+  background: #ddd;
+  color: #333;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
+  transition: background-color 0.2s ease;
 }
 
 .backButton:hover {
-  background-color: #ccc; /* Slightly darker background on hover */
+  background-color: #ccc;
 }
