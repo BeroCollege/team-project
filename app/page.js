@@ -1,9 +1,8 @@
-// app/page.js
+// app/page.js (Correct Version)
 "use client";
 
 import styles from "./page.module.css";
-import globalStyles from "./globals.css";
-import componentStyles from "./components/Goals.module.css";
+import globalStyles from "./globals.css"; // Assuming globals are loaded
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import NavBar from "./components/NavBar";
@@ -13,35 +12,48 @@ import TextIncreaseIcon from "@/public/text_increase.svg";
 import TextDecreaseIcon from "@/public/text_decrease.svg";
 import LogoutIcon from "@/public/logout.svg";
 import Goals from "./components/Goals"; // Component for the list
-import GoalDetailsView from "./components/GoalDetailsView"; // New component for details
+import GoalDetailsView from "./components/GoalDetailsView"; // Component for details
 
 export default function Home() {
 	const [fontSize, setFontSize] = useState(16);
 	const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+
 	// --- State for selected goal ---
-	const [selectedGoalKey, setSelectedGoalKey] = useState(null); // null = show list, string = show details
+	// Store the full goal object when selected
+	const [selectedGoalData, setSelectedGoalData] = useState(null); // <-- Changed state
 
 	useEffect(() => {
 		document.documentElement.style.fontSize = `${fontSize}px`;
 	}, [fontSize]);
 
-	const increaseFontSize = () => {
-		setFontSize(Math.min(fontSize + 1, 28));
+	const increaseFontSize = () => setFontSize(Math.min(fontSize + 1, 28));
+	const decreaseFontSize = () => setFontSize(Math.max(fontSize - 1, 10));
+
+	// --- Handler for when a goal is selected in the Goals list ---
+	// Accepts the full goal object from Goals.js
+	const handleGoalSelect = (goalData) => {
+		console.log("page.js: Received goal data:", goalData);
+		setSelectedGoalData(goalData); // <-- Sets the object state
 	};
 
-	const decreaseFontSize = () => {
-		setFontSize(Math.max(fontSize - 1, 10));
+	// --- Handler to go back to the Goals list ---
+	const showGoalsList = () => {
+		setSelectedGoalData(null); // Clear selection object
 	};
 
-	// --- Handlers for goal selection ---
-	const handleGoalSelect = (goalKey) => {
-		setSelectedGoalKey(goalKey);
+	// --- Handler for when a goal is updated in GoalDetailsView ---
+	// Receives the updated data object from the API response via GoalDetailsView
+	const handleGoalUpdate = (updatedGoalData) => {
+		// Update the state here so GoalDetailsView gets the latest data via props
+		setSelectedGoalData((prevData) => ({
+			...(prevData || {}), // Keep existing static data (like id, title, image, tasks)
+			// Update only the dynamic parts received from API
+			progress: updatedGoalData.progress,
+			taskStatuses: updatedGoalData.taskStatuses,
+		}));
+		// Note: This doesn't update the main Goals list automatically yet.
+		// The list will refresh its data when the category changes or on next load.
 	};
-
-	const handleBackToList = () => {
-		setSelectedGoalKey(null); // Clear selection to show the list again
-	};
-	// --- End Handlers ---
 
 	return (
 		<div>
@@ -59,21 +71,32 @@ export default function Home() {
 
 			<div className="container">
 				<ProfileArea />
-				<NavBar fontSize={fontSize} first3={true} className="first3" />
-				<NavBar fontSize={fontSize} last3={true} className="last3" />
+				{/* Pass showGoalsList down if NavBar needs to trigger going back */}
+				<NavBar
+					fontSize={fontSize}
+					first3={true}
+					className="first3"
+					onShowGoalsList={showGoalsList} // Assuming NavBar uses this
+				/>
+				<NavBar
+					fontSize={fontSize}
+					last3={true}
+					className="last3"
+					onShowGoalsList={showGoalsList} // Assuming NavBar uses this
+				/>
 
 				{/* --- Conditionally render Goals list or Goal Details --- */}
 				<div className={styles.mainContent}>
-					{selectedGoalKey ? (
+					{selectedGoalData ? ( // Render details if a goal object is selected
 						<GoalDetailsView
-							goalKey={selectedGoalKey}
-							onBack={handleBackToList} // Pass the function to go back
+							goal={selectedGoalData} // <-- Pass the full goal object
+							onBack={showGoalsList} // Pass the function to go back
+							onGoalUpdate={handleGoalUpdate} // <-- Pass the update handler
 						/>
 					) : (
 						<Goals onGoalSelect={handleGoalSelect} /> // Pass the selection handler
 					)}
 				</div>
-				{/* --- End Conditional Rendering --- */}
 			</div>
 
 			<LogoutDialog

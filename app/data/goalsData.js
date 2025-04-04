@@ -12,6 +12,8 @@ export const allGoals = [
 			"Cook pasta",
 			"Go to cooking class 2",
 		],
+		didNotDo: false,
+		tracked: true,
 	},
 	{
 		id: 2,
@@ -19,6 +21,8 @@ export const allGoals = [
 		image: "/goals-images/learn_spanish.jpeg",
 		progressKey: "Learning Spanish",
 		tasks: ["Download app", "Practice daily", "Have conversation"],
+		didNotDo: false,
+		tracked: false,
 	},
 	{
 		id: 3,
@@ -26,6 +30,8 @@ export const allGoals = [
 		image: "/goals-images/learn_korean.jpeg",
 		progressKey: "Learning Korean",
 		tasks: ["Learn Hangul", "Practice writing", "Watch a K-drama"],
+		didNotDo: false,
+		tracked: false,
 	},
 	{
 		id: 4,
@@ -40,6 +46,8 @@ export const allGoals = [
 			"Workout Day 4",
 			"Workout Day 5",
 		],
+		didNotDo: false,
+		tracked: true,
 	},
 	{
 		id: 5,
@@ -47,6 +55,8 @@ export const allGoals = [
 		image: "/goals-images/water_bottle.jpeg",
 		progressKey: "Drink 2 Litres of Water Daily",
 		tasks: ["Buy a water bottle", "Track intake", "Finish 2L by evening"],
+		didNotDo: false,
+		tracked: true,
 	},
 	{
 		id: 6,
@@ -54,6 +64,8 @@ export const allGoals = [
 		image: "/goals-images/reading.jpeg",
 		progressKey: "Read 1 Book a Month",
 		tasks: ["Pick a book", "Read daily", "Finish book"],
+		didNotDo: false,
+		tracked: true,
 	},
 	{
 		id: 7,
@@ -61,6 +73,8 @@ export const allGoals = [
 		image: "/goals-images/sky_diving.jpeg",
 		progressKey: "Skydiving",
 		tasks: ["Find a location", "Book session", "Jump!"],
+		didNotDo: true,
+		tracked: true,
 	},
 	{
 		id: 8,
@@ -68,6 +82,8 @@ export const allGoals = [
 		image: "/goals-images/podcast.jpeg",
 		progressKey: "Start a Podcast",
 		tasks: ["Pick a topic", "Record first episode", "Launch podcast"],
+		didNotDo: true,
+		tracked: true,
 	},
 	// Add other goals if they exist elsewhere
 ];

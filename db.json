@@ -1,0 +1,30 @@
+{
+  "userGoals": {
+    "localuser_Skydiving": {
+      "progress": 67,
+      "taskStatuses": [
+        2,
+        2,
+        0
+      ],
+      "isTracking": true
+    },
+    "localuser_Cooking": {
+      "progress": 50,
+      "taskStatuses": [
+        2,
+        2,
+        0,
+        0
+      ]
+    },
+    "localuser_Drink 2 Litres of Water Daily": {
+      "progress": 100,
+      "taskStatuses": [
+        2,
+        2,
+        2
+      ]
+    }
+  }
+}

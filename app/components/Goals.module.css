@@ -301,3 +301,22 @@
   margin-bottom: 5px; /* Space between medal and "Progress" text */
   z-index: 5; /* Ensure it's above the progress box background */
 }
+
+/* --- Style for the Back Button in Details View --- */
+.backButton {
+  background: #ddd;      /* Background color */
+  color: #333;          /* Text color */
+  border: none;          /* Remove default border */
+  border-radius: 10px;   /* Rounded corners */
+  padding: 0.8rem 1.8rem;/* Vertical and horizontal padding */
+  font-size: 1.1rem;     /* Font size */
+  font-weight: bold;     /* Bold text */
+  cursor: pointer;       /* Pointer cursor on hover */
+  margin-bottom: 1.5rem; /* Space below the button */
+  align-self: flex-start;/* Prevent stretching to full width in flex container */
+  transition: background-color 0.2s ease; /* Smooth hover effect */
+}
+
+.backButton:hover {
+  background-color: #ccc; /* Slightly darker background on hover */
+}
