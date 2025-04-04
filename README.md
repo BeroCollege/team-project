@@ -59,4 +59,8 @@ Johnathon is talking about actions
 Then we will be talking about how we made it into code and developed it and also talk through our app and provide demonstration
 
 TO-DO:
-- Move goals to copleted as soon as they are completed instead of keeping them in the goals im doing page.
+- Move goals to copleted as soon as they are completed instead of keeping them in the goals im doing page. ✅
+
+
+TO-DO:
+- Finish database and deploy the website. ⌚
